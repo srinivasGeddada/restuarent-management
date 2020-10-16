@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 	providedIn: 'root'
 })
 export class DataService {
-	sdf: string = 'http://localhost:3000';
+	sdf: string = 'process.env.PORT';
 	constructor(private readonly http: HttpClient) {}
 
 	getall(): Observable<any> {

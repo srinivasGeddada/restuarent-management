@@ -11,10 +11,10 @@ export const DBProvider = [
 		useFactory: async () => {
 			await createConnection({
 				type: 'mysql',
-				host: 'localhost',
+				host: process.env.HOST,
 				port: 3306,
-				username: 'root',
-				password: '',
+				username: process.env.USERNAME,
+				password: process.env.PASSWORD,
 				database: 'restuarent',
 				entities: [ UserEntity, MealsEntity, DishEntity, IngredientEntity, MealsDishesEntity ],
 				synchronize: false

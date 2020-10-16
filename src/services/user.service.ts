@@ -19,6 +19,6 @@ export class UserService {
 
 	async signToken(user: any) {
 		const payload = user;
-		return sign(payload, 'this is secret');
+		return sign(payload, process.env.SECRET_KEY);
 	}
 }

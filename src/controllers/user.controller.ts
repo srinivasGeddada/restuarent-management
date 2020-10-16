@@ -2,7 +2,6 @@ import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
 import { LoginDto, UserDto } from 'src/dto/user.dto';
 import { UserService } from 'src/services/user.service';
 import { GlobalResponse } from 'src/shared/response';
-import { sign } from 'jsonwebtoken';
 import { compare, hash } from 'bcrypt';
 
 @Controller('user')
