@@ -1,0 +1,92 @@
+<p>meals works!</p>
+<mat-chip-list aria-label="Fish selection" *ngFor="let obj of meals"  >
+    <mat-chip color="primary" (click)="submit(obj)" selected>{{obj.meal_name}}</mat-chip> 
+  </mat-chip-list>
+  <mat-chip-list aria-label="Fish selection">
+    <mat-chip color="primary" (click)="submit1()" selected>Add Dish</mat-chip> 
+    <mat-chip color="primary" (click)="submit2()" selected>Add Meal</mat-chip> 
+  </mat-chip-list>
+  <div *ngIf="isOpen" >
+    <mat-card class="mt-3 mb-3">
+        <mat-card-content>
+            <form [formGroup]="dishForm" (submit)="createDish()">
+                <h2> Add Dish</h2>
+                <mat-label>Dish Name</mat-label>
+                <input matInput  formControlName="dish_name" placeholder="name"/><br>
+                <input   formControlName="dish_type" placeholder="type" /><br>
+                <input   formControlName="dish_description" placeholder="desc" /><br>
+                <h2>Ingredients</h2>
+              
+                <div formArrayName="ingredients">
+                  <div *ngFor="let item of ingredients.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                  <label>
+                    Ingredient: <input  formControlName="ingredient_name" placeholder="name" /> <input formControlName="ingredient_type" placeholder="type" /><input type="text" formControlName="ingredient_quantity" placeholder="quantity" >
+                  </label>
+                  <button type="button" mat-raised-button (click)="deleteIngredients(pointIndex)">Remove </button>
+                  </div>
+                  <button type="button"  mat-raised-button (click)="addIngredients()">Add Ingredient</button>
+                </div>
+              <div class="text-center">
+                <button type="submit" mat-raised-button color="primary"> Submit</button>
+              </div>
+              </form>
+               
+        </mat-card-content>
+    </mat-card>
+     
+  </div>
+  <div *ngIf="isCreateMeal">
+      <mat-card class="mt-3 mb-3">
+          <mat-card-content>
+              <form [formGroup]="mealForm" (submit)="createMeal()">
+                <input type="text" formControlName="meal_name" placeholder="meal_name">
+                <input type="text" formControlName="price" placeholder="Price">
+                <input type="text" formControlName="cuisine" placeholder="Cuisine">
+                <input type="text" formControlName="meal_photo" placeholder="url Of the Pic">
+                <input type="text" formControlName="meal_type" placeholder="Type">
+                <input type="text" formControlName="time" placeholder="Time takes">
+               
+                <mat-form-field appearance="fill">
+                    <mat-label>Dishes</mat-label>
+                    <mat-select  multiple>
+                      <mat-option *ngFor="let topping of dishandIn" formControlName="dish_id" value="topping.dish_id">{{topping.dish_name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                 
+                  <div class="text-center"><button type="submit" mat-raised-button>Submit</button></div>
+              </form>
+          </mat-card-content>
+      </mat-card>
+  </div>
+<div>
+    <div class="row" >
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+           
+            <div fxLayout="row wrap">
+                <div *ngFor="let obj of dishes" fxFlex="0 0 100%" [ngStyle.gt-sm]="{'margin.px':6}" [ngStyle]="{'margin.px':6,'margin-bottom.px':20}" fxFlex.gt-sm="0 0 calc(33%-12px)">
+                    <mat-card class="example-card" >
+                        <mat-card-header>
+                          <div mat-card-avatar class="example-header-image"></div>
+                          <mat-card-title>{{obj.dish.dish_name}}</mat-card-title>
+                          <mat-card-subtitle>{{obj.dish.dish_type}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <img mat-card-image  src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                        <mat-card-content>
+                          <p>
+                           {{obj.dish.dish_description}}
+                          </p>
+                        </mat-card-content>
+                        <mat-card-actions>
+                          <button mat-button>LIKE</button>
+                          <button mat-button>SHARE</button>
+                        </mat-card-actions>
+                      </mat-card>
+                       
+                </div>
+            </div>
+           
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
